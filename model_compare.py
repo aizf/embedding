@@ -49,7 +49,8 @@ def compare_struc(g, T, y):
 if __name__ == '__main__':
     # ["wikipedia 11631 170918", "twitch 7126 35324", "github 37700 289003",
     # "facebook 22470 171002", "lastfm 7624 27806", "deezer 28281 92752"]
-    for data in ["lastfm", "facebook", "wikipedia"]:
+    # for data in ["lastfm", "facebook", "wikipedia"]:
+    for data in ["facebook"]:
         print(data)
         reader = GraphReader(data)
         g = graph = reader.get_graph()
@@ -57,4 +58,21 @@ if __name__ == '__main__':
         y = target = reader.get_target()
 
         # compare_attributed(g, T, y)
-        compare_struc(g, T, y)
+        # compare_struc(g, T, y)
+
+        from karateclub import SINE, ASNE
+        import joblib
+
+        x_path = "./output/X_ASNE.pkl"
+        model = ASNE(dimensions=32)
+        model.fit(g, T)
+        X = model.get_embedding()
+        print("X", X.shape)
+        joblib.dump(X, x_path)
+
+        x_path = "./output/X_SINE.pkl"
+        model = SINE(dimensions=32)
+        model.fit(g, T)
+        X = model.get_embedding()
+        print("X", X.shape)
+        joblib.dump(X, x_path)
