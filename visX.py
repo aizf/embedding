@@ -9,7 +9,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
 X = np.array([])
-X_path = "./output/X_ASNE.pkl"
+X_path = "./output/X.pkl"
 if os.path.exists(X_path):
     print("load " + X_path)
     X = joblib.load(X_path)
@@ -77,5 +77,5 @@ pos = []
 for i in range(len(_x)):
     pos.append([_x[i], _y[i]])
 
-with open("./output/pos_{}_asne.json".format(name), "w", encoding='utf-8') as f:
+with open("./output/pos_{}.json".format(name), "w", encoding='utf-8') as f:
     json.dump(pos, f)

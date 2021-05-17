@@ -47,4 +47,4 @@ def textPrecessing(text):
 
 if __name__ == '__main__':
     t = textPrecessing('The Voice of China 中国好声音 tvshow')
-    print(t)
+    print(t)    # ['voic', 'china', 'tvshow']

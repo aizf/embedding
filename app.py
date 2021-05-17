@@ -43,11 +43,11 @@ X = np.array([])
 X_path = "./output/X.pkl"
 if os.path.exists(X_path):
     print("load " + X_path)
-    X = joblib.load(X_path)
+    X, M, V = joblib.load(X_path)
 else:
     print("get model")
     X, M, V = model("facebook", "TSEM")
-    joblib.dump(X, X_path)
+    joblib.dump([X, M, V], X_path)
 
 print(X.shape)
 
@@ -88,7 +88,8 @@ def communities_route():
 @app.route('/recommendNodes', methods=['POST'])
 def recommendNodes_route():
     data = request.json
-    rank = recommendNodes(data["words"], data["nodes"], data["links"], X, M, V)
+    print(data["target"])
+    rank = recommendNodes( X, M, V)
     # print(res[:5], "......")
     return {'data': rank}
 
